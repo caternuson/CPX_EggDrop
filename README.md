@@ -2,6 +2,7 @@
 Egg drop code for Adafruit Circuit Playground Express
 
 **Max Data Rate Summary (Hz)**
+
 | LANG | RAM | FLASH |
 |:----:|:---:|:-----:|
 |  CP  | 110 |   40  |
