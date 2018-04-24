@@ -1,6 +1,12 @@
 # Circuit Playground Express Egg Drop
 Egg drop code for Adafruit Circuit Playground Express
 
+**Max Data Rate Summary (Hz)**
+| LANG | RAM | FLASH |
+|:----:|:---:|:-----:|
+|  CP  | 110 |   40  |
+| Ardu | 244 |  102  |
+
 ## CircuitPython
 ### Info
 * https://learn.adafruit.com/cpu-temperature-logging-with-circuit-python/writing-to-the-filesystem
