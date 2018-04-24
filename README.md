@@ -35,3 +35,29 @@ FLASH
 ## Ardunio
 ### Info
 * https://learn.adafruit.com/adafruit-feather-m0-express-designed-for-circuit-python-circuitpython/using-spi-flash
+
+### Timing Test
+Results from writing zeros (`timing_test.ino`):
+```
+Total points = 5000
+RAM
+      total time = 0.00
+       secs / pt = 0.00000
+              Hz = 5000000.00
+FLASH
+      total time = 23.52
+       secs / pt = 0.00470
+              Hz = 212.60
+```
+Results from reading and writing all 3 accelo axes (`timing_test_accelo.ino`):
+```
+Total points = 1000
+RAM
+      total time = 4.09
+       secs / pt = 0.00409
+              Hz = 244.26
+FLASH
+      total time = 9.79
+       secs / pt = 0.00979
+              Hz = 102.15
+```
