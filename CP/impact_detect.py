@@ -8,7 +8,7 @@ import math
 import time
 from adafruit_circuitplayground.express import cpx
 
-GRAVITY = 9.80665       # m/s^s
+GRAVITY = 9.80665       # m/s^2
 IMPACT_THRESHOLD = 2.0  # G's
 
 cpx.pixels.fill(0xFF0000)
