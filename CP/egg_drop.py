@@ -32,8 +32,8 @@ cpx.pixels.fill(0x00FF00)
 
 try:
     with open("/"+LOG_FILE, "w") as f:
+        start = time.monotonic()
         while free_fall:
-           start = time.monotonic()
            x, y, z = cpx.acceleration
            f.write("{}, {}, {}, {}\n".format(time.monotonic()-start, x, y, z))           
            mag = math.sqrt(x*x + y*y + z*z) / GRAVITY            
