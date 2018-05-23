@@ -9,7 +9,7 @@ from adafruit_circuitplayground.express import cpx
 
 # Configure the data logger
 LOG_COUNT  = 1000  # total points to collect
-LOG_FILE   = 'data.txt'
+LOG_FILE   = 'time_test.dat'
 
 data = [None] * LOG_COUNT
 
