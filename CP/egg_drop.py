@@ -11,7 +11,7 @@ from adafruit_circuitplayground.express import cpx
 GRAVITY = 9.80665           # m/s^2
 IMPACT_THRESHOLD = 3.0      # G's
 FREEFALL_THRESHOLD = 0.1    # G's
-XTRA_POINTS = 200           # post-impact points
+XTRA_POINTS = 100           # post-impact points
 LOG_FILE = "egg_drop.dat"
 
 cpx.pixels.fill(0x00FFFF)
@@ -30,17 +30,48 @@ while not free_fall:
 
 cpx.pixels.fill(0x00FF00)
 
+outstr = ""
+logpoints = 0
+BUFFER_SIZE = 25
+
 try:
     with open("/"+LOG_FILE, "w") as f:
         start = time.monotonic()
         while free_fall:
-           x, y, z = cpx.acceleration
-           f.write("{}, {}, {}, {}\n".format(time.monotonic()-start, x, y, z))           
-           mag = math.sqrt(x*x + y*y + z*z) / GRAVITY            
-           if mag > IMPACT_THRESHOLD:
-               free_fall = False
+            x, y, z = cpx.acceleration
+            #f.write("{}, {}, {}, {}\n".format(time.monotonic()-start, x, y, z))
+            logpoints += 1
+            outstr += "%F, %0.2F, %0.2F, %0.2F\n" % (time.monotonic()-start, x, y, z)
+            if logpoints > BUFFER_SIZE:
+                cpx.red_led = True
+                f.write(outstr+"\n")
+                f.flush()
+                outstr = ""
+                logpoints = 0
+                cpx.red_led = False
+            mag = math.sqrt(x*x + y*y + z*z) / GRAVITY
+            if mag > IMPACT_THRESHOLD:
+                free_fall = False
+        if logpoints < BUFFER_SIZE:
+                cpx.red_led = True
+                f.write(outstr+"\n")
+                f.flush()
+                cpx.red_led = False
+        outstr = ""
+        logpoints = 0
+        cpx.pixels.fill(0xFFFF00)
         for _ in range(XTRA_POINTS):
-            f.write("{}, {}, {}, {}\n".format(time.monotonic()-start, *cpx.acceleration))
+            x, y, z = cpx.acceleration
+            logpoints += 1
+            outstr += "%F, %0.2F, %0.2F, %0.2F\n" % (time.monotonic()-start, x, y, z)
+            if logpoints > BUFFER_SIZE:
+                cpx.red_led = True
+                f.write(outstr+"\n")
+                f.flush()
+                outstr = ""
+                logpoints = 0
+                cpx.red_led = False
+            #f.write("{}, {}, {}, {}\n".format(time.monotonic()-start, *cpx.acceleration))
 except OSError as e:
     # Something happened with file access
     # Flash LED forever
